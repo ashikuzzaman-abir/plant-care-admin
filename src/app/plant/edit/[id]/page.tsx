@@ -5,13 +5,16 @@ import { InputData } from '@/components/library/types';
 import FormPage from '@/components/library/create-page/page/FormPage';
 import useFormData from '@/components/library/utils/functions/useFormData';
 import { useParams } from 'next/navigation';
-import { useGetByIdQuery, useUpdateByIdMutation } from '@/store/services/commonApi';
+import {
+	useGetByIdQuery,
+	useUpdateByIdMutation,
+} from '@/store/services/commonApi';
 
 const inputFields: any = [
 	{
-		sectionTitle: 'Product Image',
-		name: 'image',
-		label: 'Image',
+		sectionTitle: '',
+		name: 'coverImage',
+		label: 'Cover Image',
 		isRequired: false,
 		type: 'image',
 		endOfSection: true,
@@ -23,56 +26,90 @@ const inputFields: any = [
 		type: 'text',
 	},
 	{
-		label: 'Item Price',
-		name: 'price',
+		sectionTitle: 'Details',
+		name: 'descriptionImage',
+		label: 'Description Image',
+		isRequired: false,
+		type: 'image',
+	},
+	{
+		name: 'plantDescription',
+		label: 'Plant Description',
 		isRequired: true,
-		type: 'number',
-	},
-	{
-		name: 'time',
-		label: 'Cooking Time',
-		isRequired: false,
-		type: 'number',
-	},
-	{
-		name: 'description',
-		label: 'Short Description',
-		isRequired: false,
 		type: 'textarea',
 	},
 	{
-		name: 'longDescription',
-		label: 'Long Description',
-		isRequired: false,
+		name: 'careDescription',
+		label: 'Care Description',
+		isRequired: true,
+		type: 'textarea',
+		endOfSection: true,
+	},
+	{
+		name: 'light',
+		label: 'Light',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'water',
+		label: 'Water',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'humidity',
+		label: 'Humidity',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'temperature',
+		label: 'Temperature',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'food',
+		label: 'Food',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'toxicity',
+		label: 'Toxicity',
+		isRequired: true,
+		type: 'text',
+	},
+	{
+		name: 'additionalCare',
+		label: 'Additional Care',
+		isRequired: true,
 		type: 'textarea',
 	},
 	{
-		name: 'category',
-		label: 'Item Category',
+		name: 'scientificName',
+		label: 'Scientific Name',
 		isRequired: true,
-		type: 'data-select',
-		model: 'categories',
-	},
-
-	{
-		sectionTitle: 'Product Collections',
-		name: 'collection',
-		label: 'Add to collections',
-		isRequired: false,
-		type: 'data-tag',
-		model: 'collections',
+		type: 'text',
 	},
 	{
-		name: 'tags',
-		label: 'Add Tags',
-		isRequired: false,
-		type: 'tag',
+		name: 'about',
+		label: 'About Plant',
+		isRequired: true,
+		type: 'textarea',
+	},
+	{
+		name: 'funfact',
+		label: 'Fun Fact',
+		isRequired: true,
+		type: 'textarea',
 	},
 ];
 
 const EditItemPage = () => {
 	const { id } = useParams<{ id: string }>();
-	const { data } = useGetByIdQuery({ path: 'items', id: id }, { skip: !id });
+	const { data } = useGetByIdQuery({ path: 'plant', id: id }, { skip: !id });
 	const [formData, setFormData] = useFormData<any>(inputFields, data);
 
 	const [trigger, result] = useUpdateByIdMutation();
@@ -85,7 +122,7 @@ const EditItemPage = () => {
 				setFormData={setFormData}
 				trigger={trigger}
 				result={result}
-				path='items'
+				path='plant'
 				title='Update Menu Item'
 				type='update'
 				id={id}

@@ -52,11 +52,11 @@ const data: TableObjectProps = {
 			type: 'view-modal',
 			dataModel: ViewDataModel,
 		},
-		{
-			title: 'View',
-			type: 'custom',
-			modal: ViewDataModel,
-		},
+		// {
+		// 	title: 'View',
+		// 	type: 'custom',
+		// 	modal: ViewDataModel,
+		// },
 	],
 
 	data: [

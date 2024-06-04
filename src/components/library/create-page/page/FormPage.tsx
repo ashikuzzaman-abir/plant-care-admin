@@ -57,7 +57,10 @@ const FormPage: FC<FormPageType> = ({
 
 	useRedirect({ isSuccess, isLoading, path: `/${path}` });
 	useCustomToast({
-		successText: type == 'update' ? 'Information Updated Successfully' : 'Item added successfully',
+		successText:
+			type == 'update'
+				? 'Information Updated Successfully'
+				: 'Item added successfully',
 		isSuccess,
 		isError,
 		isLoading: isLoading,
@@ -83,18 +86,24 @@ const FormPage: FC<FormPageType> = ({
 			}));
 		} else {
 			setFormData({ ...formData, [e.target.name]: e.target.value });
-			setChangedData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
+			setChangedData((prevState) => ({
+				...prevState,
+				[e.target.name]: e.target.value,
+			}));
 		}
 	};
 
 	const handleSwitch = (e: any) => {
 		setFormData({ ...formData, [e.target.name]: e.target.checked });
-		setChangedData(prevState => ({ ...prevState, [e.target.name]: e.target.checked }));
+		setChangedData((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.checked,
+		}));
 	};
 
-	const handleImage = (e: any) => {
-		setChangedData(prevState => ({ ...prevState, image: e }));
-		setFormData({ ...formData, image: e });
+	const handleImage = (e: any, name: string) => {
+		setChangedData((prevState) => ({ ...prevState, [name]: e }));
+		setFormData({ ...formData, [name]: e });
 	};
 
 	const handleSubmit = (e: any) => {
@@ -123,10 +132,10 @@ const FormPage: FC<FormPageType> = ({
 		return value;
 	};
 
-	const getOnChangeHandler = (type: string) => {
+	const getOnChangeHandler = (type: string, name: string) => {
 		switch (type) {
 			case 'image':
-				return handleImage;
+				return (e: any) => handleImage(e, name);
 			case 'switch':
 				return handleSwitch;
 			case 'checkbox':
@@ -139,27 +148,22 @@ const FormPage: FC<FormPageType> = ({
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<CreateNav
-				isLoading={isLoading}
-				title={`${title}`}
-				path={path}
-			/>
+			<CreateNav isLoading={isLoading} title={`${title}`} path={path} />
 			<CreateBody>
 				<FormSection>
 					{sections.map((section: any, i: number) => (
 						<FormDivision key={i}>
 							{section?.map((item: any, i: number) => (
-								<FormItem
-									item={item}
-									key={i}>
-									{(!item?.renderCondition || item?.renderCondition(formData)) && (
+								<FormItem item={item} key={i}>
+									{(!item?.renderCondition ||
+										item?.renderCondition(formData)) && (
 										<FormInput
 											isRequired={item?.isRequired || false}
 											name={item?.name}
 											label={item?.label}
 											type={item?.type}
 											value={getFieldValue(item?.name)}
-											onChange={getOnChangeHandler(item?.type)}
+											onChange={getOnChangeHandler(item?.type, item?.name)}
 											model={item?.model}
 											placeholder={item?.placeholder}
 											options={item?.options}
