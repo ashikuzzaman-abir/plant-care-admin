@@ -20,6 +20,12 @@ const inputFields: any = [
 		endOfSection: true,
 	},
 	{
+		name: 'slug',
+		label: 'Slug',
+		isRequired: true,
+		type: 'text',
+	},
+	{
 		name: 'name',
 		label: 'Name',
 		isRequired: true,

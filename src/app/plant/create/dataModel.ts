@@ -23,6 +23,12 @@ const dataFields: InputData<DataType>[] = [
 	},
 	{
 		sectionTitle: 'Details',
+		name: 'slug',
+		label: 'Slug',
+		isRequired: true,
+		type: 'text',
+	},
+	{
 		name: 'name',
 		label: 'Plant Name',
 		isRequired: true,

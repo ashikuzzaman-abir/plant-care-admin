@@ -9,6 +9,8 @@ import {
 import PageTable from '@/components/library/pages/page-tables/PageTable';
 
 const ViewDataModel: ViewModalDataModelProps[] = [
+	{ title: 'ID ', dataKey: '_id', type: 'string' },
+	{ title: 'Slug', dataKey: 'slug', type: 'string' },
 	{
 		title: 'Plant Name',
 		dataKey: 'name',
@@ -66,6 +68,12 @@ const data: TableObjectProps = {
 			type: 'image-text',
 			dataKey: 'name',
 			imageKey: 'coverImage',
+			default: true,
+		},
+		{
+			title: 'Slug',
+			sort: 'slug',
+			dataKey: 'slug',
 			default: true,
 		},
 
@@ -127,7 +135,7 @@ const data: TableObjectProps = {
 		},
 		{
 			title: 'Fun Fact',
-			dataKey: 'funFact',
+			dataKey: 'funfact',
 			default: true,
 		},
 		{
